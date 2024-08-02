@@ -1,0 +1,47 @@
+.nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #F1F2F4;
+  padding: 14px 0;
+}
+
+.ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+
+  a {
+    margin-right: 25px;
+    text-decoration: none;
+    color: #5E6670;
+    font-size: 20px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #0A65CC;
+    }
+  }
+}
+
+.utils {
+  display: flex;
+  align-items: center;
+
+  a {
+    margin-right: 25px;
+    text-decoration: none;
+    color: #18191C;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #0A65CC;
+    }
+  }
+}
+
+.telephone {
+  display: flex;
+  align-items: center;
+}
