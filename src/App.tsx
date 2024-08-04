@@ -1,11 +1,13 @@
 import Navigation from "./components/Navigation";
-import Hero from "./components/Hero";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <>
       <Navigation />
-      <Hero />
+      <div>
+        <Outlet />
+      </div>
     </>
   );
 }
