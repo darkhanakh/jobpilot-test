@@ -11,29 +11,59 @@ import { FiSliders } from "react-icons/fi";
 import Button from "../components/Button";
 import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+
+interface Job {
+  id: number;
+  title: string;
+  company: string;
+  location: string;
+  type: string;
+  salary: string;
+}
 
 const FindJobPage = () => {
-  const [jobs, setJobs] = useState<
-    {
-      location: string;
-      company: string;
-      type: string;
-      title: string;
-      salary: string;
-      id: number;
-    }[]
-  >([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [locationTerm, setLocationTerm] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:8000/jobs")
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);
+        setFilteredJobs(data);
         setIsLoading(false);
       });
   }, []);
+
+  const handleSearchChange = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleLocationChange = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setLocationTerm(e.target.value);
+  };
+
+  const handleFilter = () => {
+    const filtered = jobs.filter((job) => {
+      return (
+        job.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        job.location.toLowerCase().includes(locationTerm.toLowerCase())
+      );
+    });
+    setFilteredJobs(filtered);
+  };
+
+  useEffect(() => {
+    handleFilter();
+  }, [searchTerm, locationTerm]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -75,6 +105,8 @@ const FindJobPage = () => {
                 className="ml-2 w-[500px] border-0 bg-white border-transparent focus:border-transparent focus:ring-0"
                 type="text"
                 placeholder="Search by: Job title, Position, Keyword..."
+                value={searchTerm}
+                onChange={handleSearchChange}
               />
             </div>
             <div className="flex items-center ml-4 border-l pl-2">
@@ -83,6 +115,8 @@ const FindJobPage = () => {
                 className="ml-2 w-[400px] border-0 bg-white border-transparent focus:border-transparent focus:ring-0"
                 type="text"
                 placeholder="City, state or zip code"
+                value={locationTerm}
+                onChange={handleLocationChange}
               />
               <RiCrosshair2Fill size={24} className="text-gray-400" />
             </div>
@@ -93,7 +127,7 @@ const FindJobPage = () => {
                   Filters
                 </div>
               </Button>
-              <Button type="primary" className="py-3.5">
+              <Button type="primary" className="py-3.5" onClick={handleFilter}>
                 Find Job
               </Button>
             </div>
@@ -106,14 +140,14 @@ const FindJobPage = () => {
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {jobs.map((job) => (
+                {filteredJobs.map((job) => (
                   <Card
                     location={job.location}
                     company={job.company}
                     type={job.type}
                     title={job.title}
                     salary={job.salary}
-                    key={job.title}
+                    key={job.id}
                   />
                 ))}
               </div>
