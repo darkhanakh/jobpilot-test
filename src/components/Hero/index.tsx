@@ -7,6 +7,7 @@ import card3 from "../../assets/card3.png";
 import card4 from "../../assets/card4.png";
 import FindJobSearch from "../FindJobSearch";
 import Feature from "../Feature";
+import Button from "../Button";
 
 const cardsData = [
   {
@@ -33,7 +34,16 @@ const cardsData = [
 
 const Hero = () => (
   <div className="bg-gray-100">
-    <Header />
+    <Header>
+      <div className="flex items-center mx-auto w-30%">
+        <Button type="secondary" className="ml-3 py-[0.5rem]">
+          Sign In
+        </Button>
+        <Button type="primary" className="ml-3 py-[0.65rem]">
+          Post A Jobs
+        </Button>
+      </div>
+    </Header>
     <div className="w-[1400px] mx-auto mt-24">
       <div className="flex justify-between mx-auto">
         <div className="w-[40%] mx-auto ">

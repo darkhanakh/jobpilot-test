@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 interface ButtonProps {
-  children: string;
+  children: React.ReactNode | string;
   type: "primary" | "secondary";
   className?: string;
 }

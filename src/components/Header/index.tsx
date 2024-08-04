@@ -1,10 +1,10 @@
 import { PiSuitcaseSimple } from "react-icons/pi";
 import { IoIosSearch } from "react-icons/io";
-import Button from "../Button";
 import kazakhstanImg from "./../../assets/kazakhstan.png";
 import russiaImg from "./../../assets/russia.png";
 import indiaImg from "./../../assets/india.png";
 import Select from "../Select";
+import React from "react";
 
 const countries = [
   {
@@ -21,11 +21,15 @@ const countries = [
   },
 ];
 
-const Index = () => {
+interface HeaderProps {
+  children: React.ReactNode;
+}
+
+const Header: React.FC<HeaderProps> = ({ children }) => {
   return (
     <div className="pt-5 pb-5 bg-white">
-      <div className="flex items-center justify-between w-[1300px] mx-auto">
-        <div className="flex items-center mx-auto w-30%">
+      <div className="flex items-center justify-between container mx-auto">
+        <div className="flex items-center mx-auto">
           <div className="flex items-center">
             <PiSuitcaseSimple size={40} className="text-blue-500" />
             <p className="text-[30px] font-semibold ml-2">Jobpilot</p>
@@ -42,17 +46,10 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center mx-auto w-30%">
-          <Button type="secondary" className="ml-3 py-[0.65rem]">
-            Sign In
-          </Button>
-          <Button type="primary" className="ml-3 py-[0.65rem]">
-            Post A Jobs
-          </Button>
-        </div>
+        {children}
       </div>
     </div>
   );
 };
 
-export default Index;
+export default Header;

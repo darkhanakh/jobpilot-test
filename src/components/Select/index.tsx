@@ -21,7 +21,7 @@ const CustomSelect: React.FC<SelectProps> = ({ items }) => {
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left z-50">
       <div>
         <button
           type="button"
