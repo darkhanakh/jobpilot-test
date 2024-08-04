@@ -4,7 +4,7 @@ import Button from "../Button";
 
 const FindJobSearch = () => {
   return (
-    <div className="flex items-center border mt-5 rounded-md w-[110%] bg-white px-1 py-2">
+    <div className="flex items-center border mt-5 rounded-md w-[125%] bg-white px-1 py-2">
       <div className="flex items-center pl-2">
         <IoIosSearch size={24} className="text-blue-500" />
         <input

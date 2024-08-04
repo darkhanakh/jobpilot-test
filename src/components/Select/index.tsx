@@ -53,32 +53,34 @@ const CustomSelect: React.FC<SelectProps> = ({ items }) => {
         </button>
       </div>
 
-      {isOpen && (
-        <div
-          className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="options-menu"
-        >
-          <div className="py-1" role="none">
-            {items.map((item) => (
-              <button
-                key={item.label}
-                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                role="menuitem"
-                onClick={() => handleSelect(item)}
-              >
-                <img
-                  src={item.img}
-                  alt="country"
-                  className="inline-block mr-2 h-4"
-                />
-                {item.label}
-              </button>
-            ))}
-          </div>
+      <div
+        className={`origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none transition-transform duration-300 transform ${
+          isOpen
+            ? "scale-100 opacity-100"
+            : "scale-95 opacity-0 pointer-events-none"
+        }`}
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="options-menu"
+      >
+        <div className="py-1" role="none">
+          {items.map((item) => (
+            <button
+              key={item.label}
+              className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem"
+              onClick={() => handleSelect(item)}
+            >
+              <img
+                src={item.img}
+                alt="country"
+                className="inline-block mr-2 h-4"
+              />
+              {item.label}
+            </button>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
