@@ -6,13 +6,16 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const [showModal, setShowModal] = useState(isOpen);
+  const [showModal, setShowModal] = useState(false);
+  const [animateModal, setAnimateModal] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setShowModal(true);
+      setTimeout(() => setAnimateModal(true), 10); // Small delay to trigger animation
     } else {
-      setTimeout(() => setShowModal(false), 300); // Wait for animation to finish before setting showModal to false
+      setAnimateModal(false);
+      setTimeout(() => setShowModal(false), 300); // Wait for animation to finish before hiding
     }
   }, [isOpen]);
 
@@ -40,7 +43,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center z-[99] ${
-        isOpen ? "opacity-100" : "opacity-0"
+        animateModal ? "opacity-100" : "opacity-0"
       } transition-opacity duration-300`}
     >
       <div
@@ -49,7 +52,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
       ></div>
       <div
         className={`bg-white rounded-lg shadow dark:bg-gray-700 relative p-4 w-full max-w-2xl transform transition-all duration-300 ${
-          isOpen ? "scale-100" : "scale-95"
+          animateModal ? "scale-100" : "scale-95"
         }`}
       >
         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">

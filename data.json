@@ -1,0 +1,68 @@
+{
+  "jobs": [
+    {
+      "title": "Technical Support Specialist",
+      "type": "Part-Time",
+      "salary": "$12,000 - $15,000",
+      "company": "Google Inc.",
+      "location": "Dhaka, Bangladesh",
+      "id": 1
+    },
+    {
+      "title": "Senior UX Designer",
+      "type": "Full-Time",
+      "salary": "$12,000 - $15,000",
+      "company": "Google Inc.",
+      "location": "Dhaka, Bangladesh",
+      "id": 2
+    },
+    {
+      "title": "Senior Software Engineer",
+      "type": "Part-Time",
+      "salary": "$12,000 - $15,000",
+      "company": "Google Inc.",
+      "location": "Dhaka, Bangladesh",
+      "id": 3
+    },
+    {
+      "title": "Senior Frontend Developer",
+      "type": "Full-Time",
+      "salary": "$12,000 - $15,000",
+      "company": "Google Inc.",
+      "location": "Dhaka, Bangladesh",
+      "id": 4
+    },
+    {
+      "title": "Senior Backend Developer",
+      "type": "Full-Time",
+      "salary": "$12,000 - $15,000",
+      "company": "Google Inc.",
+      "location": "Dhaka, Bangladesh",
+      "id": 5
+    },
+    {
+      "title": "Senior Fullstack Developer",
+      "type": "Part-Time",
+      "salary": "$12,000 - $15,000",
+      "company": "Google Inc.",
+      "location": "Dhaka, Bangladesh",
+      "id": 6
+    },
+    {
+      "title": "Senior Data Scientist",
+      "type": "Full-Time",
+      "salary": "$12,000 - $15,000",
+      "company": "Google Inc.",
+      "location": "Dhaka, Bangladesh",
+      "id": 7
+    },
+    {
+      "title": "Senior Machine Learning Engineer",
+      "type": "Part-Time",
+      "salary": "$12,000 - $15,000",
+      "company": "Google Inc.",
+      "location": "Dhaka, Bangladesh",
+      "id": 8
+    }
+  ]
+}

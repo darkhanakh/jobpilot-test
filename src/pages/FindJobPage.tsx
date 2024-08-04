@@ -1,6 +1,5 @@
 import { Avatar } from "flowbite-react";
 import Header from "../components/Header";
-
 import bellImg from "../assets/bell.svg";
 import avatarImg from "../assets/avatar.png";
 import { Link } from "react-router-dom";
@@ -12,66 +11,29 @@ import { FiSliders } from "react-icons/fi";
 import Button from "../components/Button";
 import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
 
 const FindJobPage = () => {
-  const jobs = [
+  const [jobs, setJobs] = useState<
     {
-      title: "Technical Support Specialist",
-      type: "Part-Time",
-      salary: "$12,000 - $15,000",
-      company: "Google Inc.",
-      location: "Dhaka, Bangladesh",
-    },
-    {
-      title: "Senior UX Designer",
-      type: "Full-Time",
-      salary: "$12,000 - $15,000",
-      company: "Google Inc.",
-      location: "Dhaka, Bangladesh",
-    },
-    {
-      title: "Senior Software Engineer",
-      type: "Part-Time",
-      salary: "$12,000 - $15,000",
-      company: "Google Inc.",
-      location: "Dhaka, Bangladesh",
-    },
-    {
-      title: "Senior Frontend Developer",
-      type: "Full-Time",
-      salary: "$12,000 - $15,000",
-      company: "Google Inc.",
-      location: "Dhaka, Bangladesh",
-    },
-    {
-      title: "Senior Backend Developer",
-      type: "Full-Time",
-      salary: "$12,000 - $15,000",
-      company: "Google Inc.",
-      location: "Dhaka, Bangladesh",
-    },
-    {
-      title: "Senior Fullstack Developer",
-      type: "Part-Time",
-      salary: "$12,000 - $15,000",
-      company: "Google Inc.",
-      location: "Dhaka, Bangladesh",
-    },
-    {
-      title: "Senior Data Scientist",
-      type: "Full-Time",
-      salary: "$12,000 - $15,000",
-      company: "Google Inc.",
-      location: "Dhaka, Bangladesh",
-    },
-    {
-      title: "Senior Machine Learning Engineer",
-      type: "Part-Time",
-      salary: "$12,000 - $15,000",
-      company: "Google Inc.",
-      location: "Dhaka, Bangladesh",
-    },
-  ];
+      location: string;
+      company: string;
+      type: string;
+      title: string;
+      salary: string;
+      id: number;
+    }[]
+  >([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/jobs")
+      .then((res) => res.json())
+      .then((data) => {
+        setJobs(data);
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -110,15 +72,15 @@ const FindJobPage = () => {
             <div className="flex items-center">
               <IoIosSearch size={24} className="text-blue-500" />
               <input
-                className="ml-2 w-[500px] border-0 bg-white  border-transparent focus:border-transparent focus:ring-0"
+                className="ml-2 w-[500px] border-0 bg-white border-transparent focus:border-transparent focus:ring-0"
                 type="text"
-                placeholder="Search by: Job tittle, Position, Keyword..."
+                placeholder="Search by: Job title, Position, Keyword..."
               />
             </div>
             <div className="flex items-center ml-4 border-l pl-2">
               <CiLocationOn size={24} className="text-blue-500 stroke-1" />
               <input
-                className="ml-2 w-[400px] border-0 bg-white  border-transparent focus:border-transparent focus:ring-0"
+                className="ml-2 w-[400px] border-0 bg-white border-transparent focus:border-transparent focus:ring-0"
                 type="text"
                 placeholder="City, state or zip code"
               />
@@ -137,20 +99,27 @@ const FindJobPage = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {jobs.map((job) => (
-              <Card
-                location={job.location}
-                company={job.company}
-                type={job.type}
-                title={job.title}
-                salary={job.salary}
-                key={job.title}
-              />
-            ))}
-          </div>
-
-          <Pagination />
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {jobs.map((job) => (
+                  <Card
+                    location={job.location}
+                    company={job.company}
+                    type={job.type}
+                    title={job.title}
+                    salary={job.salary}
+                    key={job.title}
+                  />
+                ))}
+              </div>
+              <Pagination />
+            </>
+          )}
         </div>
       </main>
 
