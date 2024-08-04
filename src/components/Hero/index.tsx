@@ -6,7 +6,7 @@ import card2 from "../../assets/card2.png";
 import card3 from "../../assets/card3.png";
 import card4 from "../../assets/card4.png";
 import FindJobSearch from "../FindJobSearch";
-import Card from "../Card";
+import Feature from "../Feature";
 
 const cardsData = [
   {
@@ -20,7 +20,7 @@ const cardsData = [
     img: card2,
   },
   {
-    title: "38,1324",
+    title: "38,47,154",
     subtitle: "Candidates",
     img: card3,
   },
@@ -36,7 +36,7 @@ const Hero = () => (
     <Header />
     <div className="w-[1400px] mx-auto mt-24">
       <div className="flex justify-between mx-auto">
-        <div className="w-[500px] mx-auto ">
+        <div className="w-[40%] mx-auto ">
           <p className="text-[46px]">
             Find a job that suits your interest & skills.
           </p>
@@ -52,14 +52,14 @@ const Hero = () => (
             <span className="text-gray-500">Video, Animation</span>
           </p>
         </div>
-        <div className="w-[500px] pl-7 mx-auto">
+        <div className="w-[45%] pl-7 mx-auto">
           <img className="w-full" src={illustration} alt="illustration" />
         </div>
       </div>
     </div>
     <div className="mt-16 w-[1300px] flex items-center justify-between mx-auto px-4 space-x-4 pb-48">
       {cardsData.map((card) => (
-        <Card img={card.img} title={card.title} subtitle={card.subtitle} />
+        <Feature img={card.img} title={card.title} subtitle={card.subtitle} />
       ))}
     </div>
   </div>

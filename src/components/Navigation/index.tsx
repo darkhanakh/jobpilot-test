@@ -1,6 +1,24 @@
 import telephoneIcon from "./../../assets/telephone.svg";
 import { Link } from "react-router-dom";
-import LanguageSelect from "../LanguageSelect";
+import kazakhstanImg from "./../../assets/kazakhstan.png";
+import russiaImg from "./../../assets/russia.png";
+import usaImg from "./../../assets/usa.svg";
+import Select from "../Select";
+
+const languages = [
+  {
+    label: "Kazakh",
+    img: kazakhstanImg,
+  },
+  {
+    label: "English",
+    img: usaImg,
+  },
+  {
+    label: "Russian",
+    img: russiaImg,
+  },
+];
 
 const navLink = [
   {
@@ -53,7 +71,7 @@ const Navigation = () => (
           +1-202-555-0178
         </a>
       </div>
-      <LanguageSelect />
+      <Select items={languages} />
     </div>
   </nav>
 );
