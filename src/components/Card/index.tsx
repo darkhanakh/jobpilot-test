@@ -9,6 +9,7 @@ interface CardProps {
   salary: string;
   company: string;
   location: string;
+  gradient?: boolean; // Add a prop to conditionally apply the gradient
 }
 
 const Card: React.FC<CardProps> = ({
@@ -17,17 +18,24 @@ const Card: React.FC<CardProps> = ({
   title,
   company,
   location,
+  gradient = false,
 }) => {
   return (
-    <div className="border p-4 rounded-md flex flex-col">
-      <h5 className="font-semibold text-xl">{title}</h5>
+    <div
+      className={`border p-4 rounded-md flex flex-col transition-transform transform hover:scale-105 hover:shadow-lg ${
+        gradient
+          ? "bg-gradient-to-r from-[#FFF6E6] to-white shadow-[0px_2px_18px_rgba(24,25,28,0.03)]"
+          : ""
+      } min-h-[150px]`}
+    >
+      <h5 className="font-semibold text-xl line-clamp-1">{title}</h5>
       <div className="flex items-center mb-2">
         <span className="bg-green-100 text-green-600 px-2 py-1 rounded uppercase text-xs font-semibold">
           {type}
         </span>
         <span className="text-gray-400 text-sm ml-3">Salary: {salary}</span>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-auto">
         <div className="flex items-center">
           <img
             src={googleImg}

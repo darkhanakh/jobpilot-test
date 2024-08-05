@@ -6,6 +6,7 @@ import "./index.css";
 import Home from "./pages/Home.tsx";
 import Layout from "./layout/Layout.tsx";
 import FindJobPage from "./pages/FindJobPage.tsx";
+import JobDetailPage from "./pages/JobDetailPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,14 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/find-job", element: <FindJobPage /> },
+      {
+        path: "/find-job",
+        element: <FindJobPage />,
+      },
+      {
+        path: "/jobs/:id",
+        element: <JobDetailPage />,
+      },
       { path: "/employers", element: <div></div> },
       { path: "/candidates", element: <div></div> },
       { path: "/pricing-plans", element: <div></div> },
