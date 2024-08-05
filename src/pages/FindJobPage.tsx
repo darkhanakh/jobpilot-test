@@ -61,10 +61,6 @@ const FindJobPage = () => {
     setFilteredJobs(filtered);
   };
 
-  useEffect(() => {
-    handleFilter();
-  }, [searchTerm, locationTerm]);
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header>

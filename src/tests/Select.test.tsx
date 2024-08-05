@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import CustomSelect from "./../components/Select"; // Adjust the import path as needed
 import { describe, it, expect } from "vitest";
