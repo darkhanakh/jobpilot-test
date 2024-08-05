@@ -7,13 +7,14 @@ import { SetStateAction, useEffect, useState } from "react";
 import Breadcrumbs from "../components/Breadcrumbs";
 import JobListings from "../components/JobListing";
 
-interface Job {
+export interface Job {
   id: number;
   title: string;
   company: string;
   location: string;
   type: string;
   salary: string;
+  description: string;
 }
 
 const FindJobPage = () => {

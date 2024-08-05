@@ -4,57 +4,84 @@ import { Avatar } from "flowbite-react";
 import avatarImg from "../assets/avatar.png";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Footer from "../components/Footer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import JobAction from "../components/JobAction";
 import facebookImg from "../assets/facebook.png";
 import JobDescription from "../components/JobDescription";
 import JobInfo from "../components/JobInfo";
 import JobOverview from "../components/JobOverview";
+import { useEffect, useState } from "react";
+import Card from "../components/Card";
+import { Job } from "./FindJobPage";
 
 const JobDetailPage = () => {
   const { id } = useParams();
 
-  const markdown = `
-## Job Description
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [job, setJob] = useState<Job | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-Velstar is a Shopify Plus agency, and we partner with brands to help them grow, we also do the same with our people!
+  useEffect(() => {
+    fetch("http://localhost:8000/jobs/" + id)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Job not found");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setJob(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(false);
+      });
 
-Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.
+    fetch("http://localhost:8000/jobs")
+      .then((res) => res.json())
+      .then((data) => {
+        setJobs(data);
+      });
+  }, [id]);
 
-The role will involve translating project specifications into clean, test-driven, easily maintainable code. You will work with the Project and Development teams as well as with the Technical Director, adhering closely to project plans and delivering work that meets functional & non-functional requirements. You will have the opportunity to create new, innovative, secure and scalable features for our clients on the Shopify platform.
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <div role="status">
+          <svg
+            aria-hidden="true"
+            className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            viewBox="0 0 100 101"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="currentColor"
+            />
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentFill"
+            />
+          </svg>
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
-Want to work with us? You're in good company!
-
-## Requirements
-
-- Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on
-- 3+ years of experience in back-end development working either with multiple smaller projects simultaneously or large-scale applications
-- Experience with HTML, JavaScript, CSS, PHP, Symphony and/or Laravel
-- Working regularly with APIs and Web Services (REST, GraphQL, SOAP, etc)
-- Have experience/awareness in Agile application development, commercial off-the-shelf software, middleware, servers and storage, and database management
-- Familiarity with version control and project management systems (e.g., Github, Jira)
-- Ambitious and hungry to grow your career in a fast-growing agency
-
-## Desirable
-
-- Working knowledge of eCommerce platforms, ideally Shopify but also others e.g. Magento, WooCommerce, Visualsoft to enable seamless migrations
-- Working knowledge of payment gateways
-- API platform experience / Building restful APIs
-
-## Benefits
-
-- Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)
-- 28 days holiday (including bank holidays) rising by 1 day per year PLUS an additional day off on your birthday
-- Generous annual bonus
-- Healthcare package
-- Paid community days to volunteer for a charity of your choice
-- £100 contribution for your own personal learning and development
-- Free Breakfast on Mondays and free snacks in the office
-- Access to Perkbox with numerous discounts plus free points from the company to spend as you wish
-- Cycle 2 Work Scheme
-- Brand new MacBook Pro
-- Joining an agency on the cusp of exponential growth and being part of this exciting story
-`;
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <p>{error}</p>
+        <Link to="/find-job" className="text-blue-500 hover:underline">
+          Go back to job listings
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -77,25 +104,40 @@ Want to work with us? You're in good company!
         <div className="container mx-auto w-[85%]">
           <JobAction
             img={facebookImg}
-            title="Senior UX Designer"
-            type="full-time"
-            company="Google"
+            title={job?.title}
+            type={job?.type}
+            company={job?.company}
             isFeatured
           />
 
           <div className="mt-8 flex">
-            <JobDescription text={markdown} />
+            <JobDescription text={job?.description} />
 
             <div className="flex flex-col items-center w-[40%]">
-              <JobInfo
-                location="Almaty, Kazakhstan"
-                salary="$100000 - $120000"
-              />
+              <JobInfo location={job?.location} salary={job?.salary} />
               <JobOverview />
             </div>
           </div>
         </div>
       </main>
+
+      <section className="bg-white container mx-auto px-20 py-24 border-t-2 border-gray-200">
+        <h2 className="text-5xl font-medium mb-6">Related Jobs</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {jobs.map((job, index) => (
+            <Link to={`/jobs/${job.id}`} key={job.id}>
+              <Card
+                location={job.location}
+                company={job.company}
+                type={job.type}
+                title={job.title}
+                salary={job.salary}
+                gradient={index % 2 === 0}
+              />
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <Footer />
     </div>
