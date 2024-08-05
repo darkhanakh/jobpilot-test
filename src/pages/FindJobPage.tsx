@@ -66,7 +66,7 @@ const FindJobPage = () => {
       </div>
 
       {/* Job Listings */}
-      <main className="px-4 pt-6 bg-white min-h-[70vh]">
+      <main className="px-4 py-6 bg-white min-h-[70vh]">
         <div className="container mx-auto flex flex-col justify-between">
           <div className="flex items-center justify-between border shadow-sm px-4 py-2 rounded-md mb-12">
             <div className="flex items-center">
