@@ -7,7 +7,7 @@ interface JobInfoProps {
 }
 
 const JobInfo: React.FC<JobInfoProps> = ({ location, salary }) => (
-  <div className="flex items-center border-2 rounded-lg p-8">
+  <div className="flex items-center justify-center border-2 rounded-lg p-8 w-full">
     <div className="flex flex-col items-center border-gray-300 border-r-2 pr-8">
       <h4 className="font-semibold">Salary (USD)</h4>
       <p className="text-[#0BA02C] text-lg font-semibold">{salary}</p>

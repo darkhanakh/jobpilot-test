@@ -9,6 +9,7 @@ import JobAction from "../components/JobAction";
 import facebookImg from "../assets/facebook.png";
 import JobDescription from "../components/JobDescription";
 import JobInfo from "../components/JobInfo";
+import JobOverview from "../components/JobOverview";
 
 const JobDetailPage = () => {
   const { id } = useParams();
@@ -85,11 +86,12 @@ Want to work with us? You're in good company!
           <div className="mt-8 flex">
             <JobDescription text={markdown} />
 
-            <div>
+            <div className="flex flex-col items-center w-[40%]">
               <JobInfo
                 location="Almaty, Kazakhstan"
                 salary="$100000 - $120000"
               />
+              <JobOverview />
             </div>
           </div>
         </div>
