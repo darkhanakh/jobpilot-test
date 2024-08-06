@@ -25,7 +25,7 @@ const FindJobPage = () => {
   const [locationTerm, setLocationTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8000/jobs")
+    fetch("https://jobpilot-test-json.vercel.app/jobs")
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);

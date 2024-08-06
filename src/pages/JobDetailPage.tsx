@@ -23,7 +23,7 @@ const JobDetailPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:8000/jobs/" + id)
+    fetch("https://jobpilot-test-json.vercel.app/jobs/" + id)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Job not found");
@@ -39,7 +39,7 @@ const JobDetailPage = () => {
         setIsLoading(false);
       });
 
-    fetch("http://localhost:8000/jobs")
+    fetch("https://jobpilot-test-json.vercel.app/jobs")
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);
