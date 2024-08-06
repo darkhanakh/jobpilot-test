@@ -15,7 +15,7 @@ import Card from "../components/Card";
 import { Job } from "./FindJobPage";
 
 const JobDetailPage = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const [jobs, setJobs] = useState<Job[]>([]);
   const [job, setJob] = useState<Job | null>(null);
@@ -23,7 +23,7 @@ const JobDetailPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("https://jobpilot-test-json.vercel.app/jobs/" + id)
+    fetch(`https://jobpilot-test-json.vercel.app/jobs/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Job not found");
@@ -102,36 +102,40 @@ const JobDetailPage = () => {
 
       <main className="py-8 bg-white">
         <div className="container mx-auto w-[85%]">
-          <JobAction
-            img={facebookImg}
-            title={job?.title}
-            type={job?.type}
-            company={job?.company}
-            isFeatured
-          />
+          {job && (
+            <>
+              <JobAction
+                img={facebookImg}
+                title={job.title}
+                type={job.type}
+                company={job.company}
+                isFeatured
+              />
 
-          <div className="mt-8 flex">
-            <JobDescription text={job?.description} />
+              <div className="mt-8 flex">
+                <JobDescription text={job.description ?? ""} />
 
-            <div className="flex flex-col items-center w-[40%]">
-              <JobInfo location={job?.location} salary={job?.salary} />
-              <JobOverview />
-            </div>
-          </div>
+                <div className="flex flex-col items-center w-[40%]">
+                  <JobInfo location={job.location} salary={job.salary} />
+                  <JobOverview />
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </main>
 
       <section className="bg-white container mx-auto px-20 py-24 border-t-2 border-gray-200">
         <h2 className="text-5xl font-medium mb-6">Related Jobs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {jobs.map((job, index) => (
-            <Link to={`/jobs/${job.id}`} key={job.id}>
+          {jobs.map((relatedJob, index) => (
+            <Link to={`/jobs/${relatedJob.id}`} key={relatedJob.id}>
               <Card
-                location={job.location}
-                company={job.company}
-                type={job.type}
-                title={job.title}
-                salary={job.salary}
+                location={relatedJob.location}
+                company={relatedJob.company}
+                type={relatedJob.type}
+                title={relatedJob.title}
+                salary={relatedJob.salary}
                 gradient={index % 2 === 0}
               />
             </Link>
